@@ -11,17 +11,21 @@ const LOG_EVENT_MONSTER_ATTACK = "MONSTER_ATTACK";
 const LOG_EVENT_PLAYER_HEAL = "PLAYER_HEAL";
 const LOG_EVENT_GAME_OVER = "GAME_OVER";
 
-const enteredValue = prompt(
-  "Enter the maximum health for you and the monster.",
-  "100",
-);
+function getMaxLife() {
+  const enteredValue = prompt(
+    "Enter the maximum health for you and the monster.",
+    "100",
+  );
 
-let chosenMaxLife = +enteredValue;
-let battleLog = [];
-
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
-  chosenMaxLife = 100;
+  const parsedValue = parseInt(enteredValue);
+  if (isNaN(parsedValue) || parsedValue <= 0) {
+    throw { message: "invalid health value entered." };
+  }
+  return parsedValue;
 }
+
+let chosenMaxLife = getMaxLife();
+let battleLog = [];
 
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
